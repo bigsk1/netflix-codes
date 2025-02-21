@@ -1,5 +1,7 @@
 # Netflix Secret Codes (Updated February 2025)
 
+![https://repository-images.githubusercontent.com/936476888/00b903ac-5799-463f-8691-718f288c0c1e](https://imagedelivery.net/WfhVb8dSNAAvdXUdMfBuPQ/ba1b05af-7f8f-4e6d-3d0d-9c3b6af2f900/public)
+
 Below is a list of Netflix secret codes to unlock hidden categories. Click the links to explore each genre directly on Netflix.
 
 - **Action & Adventure** - [1365](https://www.netflix.com/browse/genre/1365)
