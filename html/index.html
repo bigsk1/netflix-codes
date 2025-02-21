@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Netflix Secret Codes - 2025</title>
+    <title>Ultimate Netflix Secret Codes</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -49,16 +49,25 @@
             position: relative;
             z-index: 1;
         }
+        .header {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            justify-content: center; /* Center the entire header */
+        }
+        .title-wrapper {
+            flex: 0 1 auto; /* Allow h1 to size naturally */
+            text-align: center; /* Center the h1 text */
+        }
         h1 {
-            text-align: center;
             color: #e50914;
-            margin-bottom: 10px;
+            margin: 0;
         }
         .header-controls {
             display: flex;
-            justify-content: flex-end;
             align-items: center;
-            margin-bottom: 20px;
+            margin-left: 20px; /* Space between h1 and icons */
         }
         .github-link, .theme-toggle {
             margin-left: 15px;
@@ -75,8 +84,10 @@
             color: #e50914;
         }
         .search-container {
-            margin-bottom: 20px;
+            margin-bottom: 40px;
             text-align: center;
+            padding: 0 10px;
+            box-sizing: border-box;
         }
         #searchInput {
             padding: 10px;
@@ -86,6 +97,7 @@
             border-radius: 5px;
             background: #333;
             color: #fff;
+            box-sizing: border-box;
         }
         #categoryCount {
             text-align: center;
@@ -222,15 +234,38 @@
             color: #333;
         }
         /* Responsive Design */
-        @media (max-width: 600px) {
+        @media (max-width: 1500px) {
             .container {
                 padding: 10px;
             }
             #searchInput {
                 width: 100%;
+                max-width: 100%;
+            }
+            .header {
+                flex-direction: column; /* Stack on small screens */
+            }
+            .title-wrapper {
+                width: 100%; /* Full width for centering */
             }
             .header-controls {
-                justify-content: center;
+                margin-left: 0;
+                margin-top: 20px; /* Space below h1 */
+                justify-content: center; /* Center icons when stacked */
+                width: 100%; /* Full width for proper centering */
+            }
+            .github-link, .theme-toggle {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+        }
+        @media (max-width: 480px) {
+            #searchInput {
+                width: 100%;
+                font-size: 14px;
+            }
+            .search-container {
+                padding: 0 5px;
             }
         }
         /* p5.js Canvas */
@@ -246,24 +281,28 @@
 <body>
     <div class="loader" id="loader"></div>
     <div class="container">
-        <h1>Ultimate Netflix Secret Codes - 2025</h1>
-        <div class="header-controls">
-            <div class="theme-toggle">
-                <button id="themeToggle" onclick="toggleTheme()">
-                    <svg id="themeIcon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <!-- Sun Icon (default for dark mode) -->
-                        <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM5.636 5.636a.75.75 0 011.061 0l1.591 1.591a.75.75 0 11-1.061 1.061L5.636 6.697a.75.75 0 010-1.061zM2.25 12a.75.75 0 01.75-.75H5.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zm3.386 6.364a.75.75 0 010 1.061l-1.591 1.591a.75.75 0 11-1.061-1.061l1.591-1.591a.75.75 0 011.061 0zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zm6.364-1.414a.75.75 0 011.061 0l1.591 1.591a.75.75 0 11-1.061 1.061l-1.591-1.591a.75.75 0 010-1.061zM21 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zm-3.386-6.364a.75.75 0 010-1.061l1.591-1.591a.75.75 0 111.061 1.061l-1.591 1.591a.75.75 0 01-1.061 0zM12 8.25a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5z"/>
-                    </svg>
-                </button>
+        <div class="loader" id="loader"></div>
+        <header class="header">
+            <div class="title-wrapper">
+                <h1>Ultimate Netflix Secret Codes</h1>
             </div>
-            <div class="github-link">
-                <a href="https://github.com/bigsk1/netflix-codes" target="_blank" title="View on GitHub">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-                    </svg>
-                </a>
+            <div class="header-controls">
+                <div class="theme-toggle">
+                    <button id="themeToggle" onclick="toggleTheme()">
+                        <svg id="themeIcon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM5.636 5.636a.75.75 0 011.061 0l1.591 1.591a.75.75 0 11-1.061 1.061L5.636 6.697a.75.75 0 010-1.061zM2.25 12a.75.75 0 01.75-.75H5.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zm3.386 6.364a.75.75 0 010 1.061l-1.591 1.591a.75.75 0 11-1.061-1.061l1.591-1.591a.75.75 0 011.061 0zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zm6.364-1.414a.75.75 0 011.061 0l1.591 1.591a.75.75 0 11-1.061 1.061l-1.591-1.591a.75.75 0 010-1.061zM21 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zm-3.386-6.364a.75.75 0 010-1.061l1.591-1.591a.75.75 0 111.061 1.061l-1.591 1.591a.75.75 0 01-1.061 0zM12 8.25a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="github-link">
+                    <a href="https://github.com/bigsk1/netflix-codes" target="_blank" title="View on GitHub">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
-        </div>
+        </header>
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Search categories..." onkeyup="filterCategories()">
         </div>
