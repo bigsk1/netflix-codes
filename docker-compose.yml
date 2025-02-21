@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "84:80"
+      - "80:80"
     volumes:
       - ./html:/usr/share/nginx/html:ro
     restart: unless-stopped
