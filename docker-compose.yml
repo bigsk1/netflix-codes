@@ -1,0 +1,17 @@
+services:
+  netflix-codes:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "84:80"
+    volumes:
+      - ./html:/usr/share/nginx/html:ro
+    restart: unless-stopped
+    environment:
+      - NGINX_PORT=80
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Netflix Secret Codes - 2025</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Ultimate Netflix Secret Codes - 2025">
+    <meta property="og:description" content="Unlock over 200 hidden Netflix categories with this sleek, dark-mode webpage. Updated for 2025!">
+    <meta property="og:image" content="https://netflix-codes.bigsk1.com/social-preview.png">
+    <meta property="og:url" content="https://netflix-codes.bigsk1.com">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ultimate Netflix Secret Codes - 2025">
+    <meta name="twitter:description" content="Unlock over 200 hidden Netflix categories with this sleek, dark-mode webpage. Updated for 2025!">
+    <meta name="twitter:image" content="https://netflix-codes.bigsk1.com/social-preview.png">
+
+    <!-- p5.js CDN -->
+    <script src="./p5.min.js"></script>
+
+    <!-- Styles -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #141414;
+            color: #e5e5e5;
+            margin: 0;
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #1f1f1f;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+        h1 {
+            text-align: center;
+            color: #e50914;
+            margin-bottom: 10px;
+        }
+        .header-controls {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .github-link, .theme-toggle {
+            margin-left: 15px;
+        }
+        .github-link a, .theme-toggle button {
+            color: #e5e5e5;
+            text-decoration: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .github-link a:hover, .theme-toggle button:hover {
+            color: #e50914;
+        }
+        .search-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        #searchInput {
+            padding: 10px;
+            width: 80%;
+            max-width: 400px;
+            border: none;
+            border-radius: 5px;
+            background: #333;
+            color: #fff;
+        }
+        #categoryCount {
+            text-align: center;
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 20px;
+        }
+        .category-group {
+            margin-bottom: 20px;
+        }
+        .category-group h2 {
+            background: #2a2a2a;
+            padding: 10px;
+            margin: 0;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+        .category-group h2:hover {
+            background: #3a3a3a;
+        }
+        .category-list {
+            list-style: none;
+            padding: 0;
+            display: none;
+        }
+        .category-list.active {
+            display: block;
+        }
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+        .category-content.expanded {
+        max-height: 500px; /* Adjust based on content */
+        }
+        .category-item {
+            margin: 10px 0;
+            background: #2a2a2a;
+            padding: 10px;
+            border-radius: 5px;
+            transition: transform 0.2s, background 0.2s;
+            position: relative;
+        }
+        .category-item:hover {
+            transform: scale(1.02);
+            background: #3a3a3a;
+        }
+        .category-item a {
+            color: #e50914;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .category-item a:hover {
+            color: #fff;
+        }
+        .category-item span {
+            color: #999;
+            margin-left: 10px;
+        }
+        .category-item::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s;
+        }
+        .category-item:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+        #backToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #e50914;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            transition: background 0.2s;
+            z-index: 2;
+        }
+        #backToTop:hover {
+            background: #b20710;
+        }
+        .loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #e50914;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            display: none;
+            z-index: 2;
+        }
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        /* Light Mode */
+        body.light-mode {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .light-mode .container {
+            background: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .light-mode .category-item, .light-mode .category-group h2 {
+            background: #e5e5e5;
+        }
+        .light-mode .category-item:hover, .light-mode .category-group h2:hover {
+            background: #d5d5d5;
+        }
+        .light-mode #searchInput {
+            background: #ddd;
+            color: #333;
+        }
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            #searchInput {
+                width: 100%;
+            }
+            .header-controls {
+                justify-content: center;
+            }
+        }
+        /* p5.js Canvas */
+        #p5-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader" id="loader"></div>
+    <div class="container">
+        <h1>Ultimate Netflix Secret Codes - 2025</h1>
+        <div class="header-controls">
+            <div class="theme-toggle">
+                <button id="themeToggle" onclick="toggleTheme()">
+                    <svg id="themeIcon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <!-- Sun Icon (default for dark mode) -->
+                        <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM5.636 5.636a.75.75 0 011.061 0l1.591 1.591a.75.75 0 11-1.061 1.061L5.636 6.697a.75.75 0 010-1.061zM2.25 12a.75.75 0 01.75-.75H5.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zm3.386 6.364a.75.75 0 010 1.061l-1.591 1.591a.75.75 0 11-1.061-1.061l1.591-1.591a.75.75 0 011.061 0zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zm6.364-1.414a.75.75 0 011.061 0l1.591 1.591a.75.75 0 11-1.061 1.061l-1.591-1.591a.75.75 0 010-1.061zM21 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zm-3.386-6.364a.75.75 0 010-1.061l1.591-1.591a.75.75 0 111.061 1.061l-1.591 1.591a.75.75 0 01-1.061 0zM12 8.25a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="github-link">
+                <a href="https://github.com/bigsk1/netflix-codes" target="_blank" title="View on GitHub">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search categories..." onkeyup="filterCategories()">
+        </div>
+        <div id="categoryCount"></div>
+        <div class="category-group">
+            <h2 onclick="toggleGroup(this)">Movies</h2>
+            <ul class="category-list" id="moviesList"></ul>
+        </div>
+        <div class="category-group">
+            <h2 onclick="toggleGroup(this)">TV Shows</h2>
+            <ul class="category-list" id="tvShowsList"></ul>
+        </div>
+        <div class="category-group">
+            <h2 onclick="toggleGroup(this)">Genres</h2>
+            <ul class="category-list" id="genresList"></ul>
+        </div>
+        <button id="backToTop" onclick="scrollToTop()">↑</button>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        const categories = [
+        // Movies
+        { name: "Action & Adventure", code: "1365", group: "movies", tooltip: "Action-packed films and thrilling adventures" },
+        { name: "Action Comedies", code: "43040", group: "movies", tooltip: "High-energy laughs with action twists" },
+        { name: "Action Sci-Fi & Fantasy", code: "1568", group: "movies", tooltip: "Futuristic battles and epic quests" },
+        { name: "Action Thrillers", code: "43048", group: "movies", tooltip: "Pulse-pounding action with suspense" },
+        { name: "Adventures", code: "7442", group: "movies", tooltip: "Journeys into the unknown" },
+        { name: "African Movies", code: "3761", group: "movies", tooltip: "Stories from the African continent" },
+        { name: "Alien Sci-Fi", code: "3327", group: "movies", tooltip: "Extraterrestrial encounters" },
+        { name: "Animal Tales", code: "5507", group: "movies", tooltip: "Heartwarming animal adventures" },
+        { name: "Anime Features", code: "3063", group: "movies", tooltip: "Animated Japanese cinematic gems" },
+        { name: "Art House Movies", code: "29764", group: "movies", tooltip: "Creative and unconventional films" },
+        { name: "Asian Action Movies", code: "77232", group: "movies", tooltip: "Martial arts and Asian action flair" },
+        { name: "Australian Movies", code: "5230", group: "movies", tooltip: "Down Under cinematic tales" },
+        { name: "B-Horror Movies", code: "8195", group: "movies", tooltip: "Low-budget horror thrills" },
+        { name: "Baseball Movies", code: "12339", group: "movies", tooltip: "Diamonds, drama, and home runs" },
+        { name: "Basketball Movies", code: "12762", group: "movies", tooltip: "Hoops and heartfelt stories" },
+        { name: "Belgian Movies", code: "262", group: "movies", tooltip: "Belgian cinematic perspectives" },
+        { name: "Biographical Dramas", code: "3179", group: "movies", tooltip: "Real lives, dramatic tales" },
+        { name: "Boxing Movies", code: "12443", group: "movies", tooltip: "Ring-side drama and grit" },
+        { name: "British Movies", code: "10757", group: "movies", tooltip: "UK’s finest cinematic offerings" },
+        { name: "Campy Movies", code: "1252", group: "movies", tooltip: "Over-the-top fun films" },
+        { name: "Children & Family Movies", code: "783", group: "movies", tooltip: "Fun for kids and families" },
+        { name: "Chinese Movies", code: "3960", group: "movies", tooltip: "Films from China’s rich culture" },
+        { name: "Classic Action & Adventure", code: "46576", group: "movies", tooltip: "Timeless action classics" },
+        { name: "Classic Comedies", code: "31694", group: "movies", tooltip: "Vintage laughs that endure" },
+        { name: "Classic Dramas", code: "29809", group: "movies", tooltip: "Timeless dramatic masterpieces" },
+        { name: "Classic Foreign Movies", code: "32473", group: "movies", tooltip: "Global classics from yesteryear" },
+        { name: "Classic Movies", code: "31574", group: "movies", tooltip: "Cinematic history’s best" },
+        { name: "Classic Musicals", code: "32392", group: "movies", tooltip: "Song and dance classics" },
+        { name: "Classic Romantic Movies", code: "31273", group: "movies", tooltip: "Timeless love stories" },
+        { name: "Classic Sci-Fi & Fantasy", code: "47147", group: "movies", tooltip: "Retro futuristic adventures" },
+        { name: "Classic Thrillers", code: "46588", group: "movies", tooltip: "Suspense from the golden age" },
+        { name: "Classic War Movies", code: "48744", group: "movies", tooltip: "Historic war epics" },
+        { name: "Classic Westerns", code: "47465", group: "movies", tooltip: "Old West showdowns" },
+        { name: "Comic Book and Superhero Movies", code: "10118", group: "movies", tooltip: "Heroes in capes and masks" },
+        { name: "Courtroom Dramas", code: "52858", group: "movies", tooltip: "Justice in dramatic form" },
+        { name: "Creature Features", code: "6895", group: "movies", tooltip: "Monsters and mayhem" },
+        { name: "Crime Action & Adventure", code: "9584", group: "movies", tooltip: "Cops, robbers, and action" },
+        { name: "Crime Dramas", code: "6889", group: "movies", tooltip: "Dark tales of crime" },
+        { name: "Crime Thrillers", code: "10499", group: "movies", tooltip: "Suspenseful criminal plots" },
+        { name: "Cult Comedies", code: "9434", group: "movies", tooltip: "Quirky, cult-hit laughs" },
+        { name: "Cult Horror Movies", code: "10944", group: "movies", tooltip: "Cult-classic scares" },
+        { name: "Cult Movies", code: "7627", group: "movies", tooltip: "Underground cinematic gems" },
+        { name: "Cult Sci-Fi & Fantasy", code: "4734", group: "movies", tooltip: "Cult sci-fi oddities" },
+        { name: "Dark Comedies", code: "869", group: "movies", tooltip: "Humor with a dark twist" },
+        { name: "Deep Sea Horror", code: "45028", group: "movies", tooltip: "Terror beneath the waves" },
+        { name: "Disney", code: "67673", group: "movies", tooltip: "Disney’s magical films" },
+        { name: "Disney Musicals", code: "59433", group: "movies", tooltip: "Disney’s song-filled adventures" },
+        { name: "Dramas Based on Books", code: "4961", group: "movies", tooltip: "Stories from page to screen" },
+        { name: "Dramas Based on Real Life", code: "3653", group: "movies", tooltip: "True dramatic tales" },
+        { name: "Dutch Movies", code: "10606", group: "movies", tooltip: "Films from the Netherlands" },
+        { name: "Eastern European Movies", code: "5254", group: "movies", tooltip: "Eastern Europe’s cinematic voice" },
+        { name: "Epics", code: "52858", group: "movies", tooltip: "Grand, sweeping stories" },
+        { name: "Experimental Movies", code: "11079", group: "movies", tooltip: "Avant-garde film experiments" },
+        { name: "Faith & Spirituality Movies", code: "52804", group: "movies", tooltip: "Inspirational spiritual films" },
+        { name: "Family Features", code: "51056", group: "movies", tooltip: "Movies for all ages" },
+        { name: "Fantasy Movies", code: "9744", group: "movies", tooltip: "Magical and fantastical tales" },
+        { name: "Film Noir", code: "7687", group: "movies", tooltip: "Dark, moody classics" },
+        { name: "Football Movies", code: "12803", group: "movies", tooltip: "Gridiron glory and drama" },
+        { name: "French Movies", code: "58807", group: "movies", tooltip: "French cinematic artistry" },
+        { name: "Gangster Movies", code: "31851", group: "movies", tooltip: "Mob life and crime" },
+        { name: "Gay & Lesbian Movies", code: "5977", group: "movies", tooltip: "LGBTQ+ stories on screen" },
+        { name: "German Movies", code: "58886", group: "movies", tooltip: "German film craftsmanship" },
+        { name: "Greek Movies", code: "61115", group: "movies", tooltip: "Greek cinematic narratives" },
+        { name: "High Brow Horror", code: "3261672", group: "movies", tooltip: "Elevated horror experiences" },
+        { name: "Horror Comedies", code: "89585", group: "movies", tooltip: "Laughs with your scares" },
+        { name: "Horror Movies", code: "8711", group: "movies", tooltip: "Spooky and thrilling films" },
+        { name: "Independent Comedies", code: "4195", group: "movies", tooltip: "Indie laughs with charm" },
+        { name: "Independent Dramas", code: "384", group: "movies", tooltip: "Indie emotional depth" },
+        { name: "Independent Thrillers", code: "3269", group: "movies", tooltip: "Indie suspense stories" },
+        { name: "Indian Movies", code: "10463", group: "movies", tooltip: "Bollywood and beyond" },
+        { name: "Irish Movies", code: "58750", group: "movies", tooltip: "Irish cinematic tales" },
+        { name: "Italian Movies", code: "8221", group: "movies", tooltip: "Italian film flair" },
+        { name: "Japanese Movies", code: "10398", group: "movies", tooltip: "Japanese cinematic artistry" },
+        { name: "Korean Movies", code: "5685", group: "movies", tooltip: "South Korean film brilliance" },
+        { name: "Late Night Comedies", code: "1402", group: "movies", tooltip: "After-hours humor" },
+        { name: "Latin American Movies", code: "1613", group: "movies", tooltip: "Latin American stories" },
+        { name: "Martial Arts Movies", code: "8985", group: "movies", tooltip: "Kicks, punches, and action" },
+        { name: "Middle Eastern Movies", code: "5875", group: "movies", tooltip: "Middle Eastern narratives" },
+        { name: "Military Action & Adventure", code: "2125", group: "movies", tooltip: "Military missions on screen" },
+        { name: "Military Dramas", code: "11", group: "movies", tooltip: "War’s dramatic side" },
+        { name: "Monster Movies", code: "947", group: "movies", tooltip: "Creatures that terrify" },
+        { name: "Movies Based on Children’s Books", code: "10056", group: "movies", tooltip: "Kids’ books brought to life" },
+        { name: "Movies for Ages 0 to 2", code: "6796", group: "movies", tooltip: "Films for the youngest viewers" },
+        { name: "Movies for Ages 2 to 4", code: "6218", group: "movies", tooltip: "Toddler-friendly films" },
+        { name: "Movies for Ages 5 to 7", code: "5455", group: "movies", tooltip: "Fun for young kids" },
+        { name: "Movies for Ages 8 to 10", code: "561", group: "movies", tooltip: "Pre-teen movie magic" },
+        { name: "Movies for Ages 11 to 12", code: "6962", group: "movies", tooltip: "Tween cinematic adventures" },
+        { name: "Musicals", code: "13335", group: "movies", tooltip: "Sing along with the story" },
+        { name: "New Zealand Movies", code: "63782", group: "movies", tooltip: "Kiwi cinematic tales" },
+        { name: "Nordic Movies", code: "9292", group: "movies", tooltip: "Scandinavian film vibes" },
+        { name: "Period Pieces", code: "12123", group: "movies", tooltip: "History brought to life" },
+        { name: "Political Dramas", code: "6616", group: "movies", tooltip: "Power and politics on screen" },
+        { name: "Political Thrillers", code: "10504", group: "movies", tooltip: "Suspense in the corridors of power" },
+        { name: "Psychological Thrillers", code: "5505", group: "movies", tooltip: "Mind-bending suspense" },
+        { name: "Quirky Romance", code: "36103", group: "movies", tooltip: "Unusual love stories" },
+        { name: "Rock & Pop Concerts", code: "3278", group: "movies", tooltip: "Live music on film" },
+        { name: "Romantic Comedies", code: "5475", group: "movies", tooltip: "Love and laughter combined" },
+        { name: "Romantic Dramas", code: "1255", group: "movies", tooltip: "Tearful tales of romance" },
+        { name: "Romantic Favorites", code: "502675", group: "movies", tooltip: "Beloved love stories" },
+        { name: "Romantic Foreign Movies", code: "7153", group: "movies", tooltip: "Global romantic tales" },
+        { name: "Romantic Independent Movies", code: "9916", group: "movies", tooltip: "Indie love stories" },
+        { name: "Romantic Movies", code: "8883", group: "movies", tooltip: "Heartfelt love on screen" },
+        { name: "Russian", code: "11567", group: "movies", tooltip: "Russian cinematic works" },
+        { name: "Satanic Stories", code: "6998", group: "movies", tooltip: "Dark tales of the occult" },
+        { name: "Satirical Comedies", code: "4922", group: "movies", tooltip: "Biting humor with a point" },
+        { name: "Scandinavian Movies", code: "9292", group: "movies", tooltip: "Nordic cinematic chill" },
+        { name: "Sci-Fi Adventure", code: "6926", group: "movies", tooltip: "Exploration beyond the stars" },
+        { name: "Sci-Fi Dramas", code: "3916", group: "movies", tooltip: "Thoughtful sci-fi tales" },
+        { name: "Sci-Fi Horror Movies", code: "1694", group: "movies", tooltip: "Sci-fi meets terror" },
+        { name: "Sci-Fi Thrillers", code: "11014", group: "movies", tooltip: "Futuristic suspense" },
+        { name: "Screwball Comedies", code: "9702", group: "movies", tooltip: "Zany, fast-paced laughs" },
+        { name: "Showbiz Dramas", code: "5012", group: "movies", tooltip: "Behind the curtain tales" },
+        { name: "Showbiz Musicals", code: "13573", group: "movies", tooltip: "Stage lights and song" },
+        { name: "Silent Movies", code: "53310", group: "movies", tooltip: "Cinema’s silent era" },
+        { name: "Slapstick Comedies", code: "10256", group: "movies", tooltip: "Physical comedy classics" },
+        { name: "Slasher & Serial Killer Movies", code: "8646", group: "movies", tooltip: "Blood and blades" },
+        { name: "Soccer Movies", code: "12549", group: "movies", tooltip: "Drama on the pitch" },
+        { name: "Social Issue Dramas", code: "3947", group: "movies", tooltip: "Stories that matter" },
+        { name: "Southeast Asian Movies", code: "9196", group: "movies", tooltip: "Southeast Asian cinema" },
+        { name: "Spanish Movies", code: "58741", group: "movies", tooltip: "Spanish-language films" },
+        { name: "Sports Comedies", code: "5286", group: "movies", tooltip: "Laughs on the field" },
+        { name: "Sports Dramas", code: "7243", group: "movies", tooltip: "Triumph and tears in sports" },
+        { name: "Sports Movies", code: "4370", group: "movies", tooltip: "Athletic cinematic tales" },
+        { name: "Spy Action & Adventure", code: "10702", group: "movies", tooltip: "Espionage with action" },
+        { name: "Spy Thrillers", code: "9147", group: "movies", tooltip: "Intrigue and suspense" },
+        { name: "Steamy Romantic Movies", code: "35800", group: "movies", tooltip: "Passionate love stories" },
+        { name: "Supernatural Horror Movies", code: "42023", group: "movies", tooltip: "Ghosts and ghouls" },
+        { name: "Supernatural Thrillers", code: "11140", group: "movies", tooltip: "Mystical suspense" },
+        { name: "Teen Comedies", code: "3519", group: "movies", tooltip: "Teenage laughs" },
+        { name: "Teen Dramas", code: "9299", group: "movies", tooltip: "Teen life dramas" },
+        { name: "Urban & Dance Concerts", code: "9472", group: "movies", tooltip: "City beats on film" },
+        { name: "Vampire Horror Movies", code: "75804", group: "movies", tooltip: "Bloodsucking terror" },
+        { name: "Werewolf Horror Movies", code: "75930", group: "movies", tooltip: "Howls and horror" },
+        { name: "Westerns", code: "7700", group: "movies", tooltip: "Cowboys and frontiers" },
+        { name: "Witchcraft & the Dark Arts", code: "81552046", group: "movies", tooltip: "Magic and mystery" },
+        { name: "World Music Concerts", code: "2856", group: "movies", tooltip: "Global rhythms on screen" },
+        { name: "Zombie Horror Movies", code: "75405", group: "movies", tooltip: "Undead scares" },
+
+        // TV Shows
+        { name: "Adult Animation", code: "11881", group: "tvshows", tooltip: "Cartoons for grown-ups" },
+        { name: "Anime Series", code: "6721", group: "tvshows", tooltip: "Japanese animated series" },
+        { name: "British TV Shows", code: "52117", group: "tvshows", tooltip: "UK’s best TV series" },
+        { name: "Classic TV Shows", code: "46553", group: "tvshows", tooltip: "TV classics from the past" },
+        { name: "Crime TV Shows", code: "26146", group: "tvshows", tooltip: "Criminal tales in episodes" },
+        { name: "Cult TV Shows", code: "74652", group: "tvshows", tooltip: "Cult-hit TV series" },
+        { name: "Education for Kids", code: "10659", group: "tvshows", tooltip: "Learning fun for kids" },
+        { name: "Food & Travel TV", code: "72436", group: "tvshows", tooltip: "Cultures through food and travel" },
+        { name: "Kids Faith & Spirituality", code: "751423", group: "tvshows", tooltip: "Spiritual shows for kids" },
+        { name: "Kids Music", code: "52843", group: "tvshows", tooltip: "Songs for young ears" },
+        { name: "Kids TV", code: "27346", group: "tvshows", tooltip: "TV for the little ones" },
+        { name: "Korean TV Shows", code: "67879", group: "tvshows", tooltip: "K-dramas and more" },
+        { name: "Military TV Shows", code: "25804", group: "tvshows", tooltip: "Military life on TV" },
+        { name: "Miniseries", code: "4814", group: "tvshows", tooltip: "Short, gripping series" },
+        { name: "Reality TV", code: "9833", group: "tvshows", tooltip: "Real-life drama and fun" },
+        { name: "Science & Nature TV", code: "52780", group: "tvshows", tooltip: "Exploring the natural world" },
+        { name: "TV Action & Adventure", code: "10673", group: "tvshows", tooltip: "Episodic action thrills" },
+        { name: "TV Cartoons", code: "11177", group: "tvshows", tooltip: "Animated series for all" },
+        { name: "TV Comedies", code: "10375", group: "tvshows", tooltip: "Episodic laughs" },
+        { name: "TV Documentaries", code: "10105", group: "tvshows", tooltip: "Factual TV series" },
+        { name: "TV Dramas", code: "11714", group: "tvshows", tooltip: "Serialized dramatic tales" },
+        { name: "TV Horror", code: "83059", group: "tvshows", tooltip: "Spooky series" },
+        { name: "TV Mysteries", code: "4366", group: "tvshows", tooltip: "Mysteries in episodes" },
+        { name: "TV Sci-Fi & Fantasy", code: "1372", group: "tvshows", tooltip: "Sci-fi and fantasy on TV" },
+        { name: "TV Shows", code: "83", group: "tvshows", tooltip: "All things television" },
+        { name: "Teen Screams", code: "52147", group: "tvshows", tooltip: "Teen horror series" },
+        { name: "Teen TV Shows", code: "60951", group: "tvshows", tooltip: "Shows for teens" },
+
+        // Genres
+        { name: "Anime Action", code: "2653", group: "genres", tooltip: "Fast-paced anime battles" },
+        { name: "Anime Comedies", code: "9302", group: "genres", tooltip: "Anime with big laughs" },
+        { name: "Anime Dramas", code: "452", group: "genres", tooltip: "Emotional anime stories" },
+        { name: "Anime Fantasy", code: "11146", group: "genres", tooltip: "Magical anime worlds" },
+        { name: "Anime Horror", code: "10695", group: "genres", tooltip: "Creepy anime tales" },
+        { name: "Anime Sci-Fi", code: "2729", group: "genres", tooltip: "Futuristic anime adventures" },
+        { name: "Biographical Documentaries", code: "3652", group: "genres", tooltip: "True-life stories" },
+        { name: "Comedies", code: "6548", group: "genres", tooltip: "Laugh-out-loud entertainment" },
+        { name: "Country & Western/Folk", code: "1105", group: "genres", tooltip: "Twangy tales and tunes" },
+        { name: "Crime Documentaries", code: "9875", group: "genres", tooltip: "Real crime investigations" },
+        { name: "Documentaries", code: "6839", group: "genres", tooltip: "Factual storytelling" },
+        { name: "Dramas", code: "5763", group: "genres", tooltip: "Deep, emotional narratives" },
+        { name: "Faith & Spirituality", code: "26835", group: "genres", tooltip: "Uplifting spiritual content" },
+        { name: "Historical Documentaries", code: "5349", group: "genres", tooltip: "History unveiled" },
+        { name: "Jazz & Easy Listening", code: "10271", group: "genres", tooltip: "Smooth musical vibes" },
+        { name: "Military Documentaries", code: "4006", group: "genres", tooltip: "War stories uncovered" },
+        { name: "Mockumentaries", code: "26", group: "genres", tooltip: "Fake docs, real laughs" },
+        { name: "Music & Concert Documentaries", code: "90361", group: "genres", tooltip: "Music history on screen" },
+        { name: "Mysteries", code: "9994", group: "genres", tooltip: "Puzzles to unravel" },
+        { name: "Political Comedies", code: "2700", group: "genres", tooltip: "Politics with a punchline" },
+        { name: "Political Documentaries", code: "7018", group: "genres", tooltip: "Power in focus" },
+        { name: "Reluctant Adults", code: "3053870", group: "genres", tooltip: "Growing up, reluctantly" },
+        { name: "Religious Documentaries", code: "10005", group: "genres", tooltip: "Faith explored" },
+        { name: "Sci-Fi & Fantasy", code: "1492", group: "genres", tooltip: "Beyond reality tales" },
+        { name: "Science & Nature Documentaries", code: "2595", group: "genres", tooltip: "Wonders of the world" },
+        { name: "Social & Cultural Documentaries", code: "3675", group: "genres", tooltip: "Society under the lens" },
+        { name: "Spiritual Documentaries", code: "2760", group: "genres", tooltip: "Soulful real-life tales" },
+        { name: "Sports & Fitness", code: "9327", group: "genres", tooltip: "Athletics and energy" },
+        { name: "Sports Documentaries", code: "180", group: "genres", tooltip: "Sports history revealed" },
+        { name: "Stand-up Comedy", code: "11559", group: "genres", tooltip: "Live comedy specials" },
+        { name: "Thrillers", code: "8933", group: "genres", tooltip: "Suspenseful and gripping stories" },
+        { name: "Travel & Adventure Documentaries", code: "1159", group: "genres", tooltip: "Journeys around the globe" }
+    ];
+
+    function populateCategories() {
+        const moviesList = document.getElementById('moviesList');
+        const tvShowsList = document.getElementById('tvShowsList');
+        const genresList = document.getElementById('genresList');
+        categories.sort((a, b) => a.name.localeCompare(b.name));
+        categories.forEach(category => {
+            const li = document.createElement('li');
+            li.className = 'category-item';
+            li.setAttribute('data-tooltip', category.tooltip);
+            li.innerHTML = `<a href="https://www.netflix.com/browse/genre/${category.code}" target="_blank">${category.name}</a> <span>(Code: ${category.code})</span>`;
+            if (category.group === 'movies') moviesList.appendChild(li);
+            else if (category.group === 'tvshows') tvShowsList.appendChild(li);
+            else if (category.group === 'genres') genresList.appendChild(li);
+        });
+        updateCategoryCount();
+    }
+
+    function filterCategories() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        const lists = document.getElementsByClassName('category-list');
+        let visibleCount = 0;
+        Array.from(lists).forEach(list => {
+            const items = list.getElementsByClassName('category-item');
+            let hasVisible = false;
+            Array.from(items).forEach(item => {
+                const text = item.textContent.toLowerCase();
+                const isVisible = text.includes(input);
+                item.style.display = isVisible ? '' : 'none';
+                if (isVisible) {
+                    hasVisible = true;
+                    visibleCount++;
+                }
+            });
+            list.classList.toggle('active', hasVisible || input === '');
+        });
+        updateCategoryCount(visibleCount);
+    }
+
+    function updateCategoryCount(visibleCount = categories.length) {
+        const countDiv = document.getElementById('categoryCount');
+        countDiv.textContent = `Showing ${visibleCount} of ${categories.length} categories`;
+    }
+
+    function toggleGroup(header) {
+        const list = header.nextElementSibling;
+        list.classList.toggle('active');
+    }
+
+    function toggleTheme() {
+        document.body.classList.toggle('light-mode');
+        const icon = document.getElementById('themeIcon');
+        if (document.body.classList.contains('light-mode')) {
+            icon.innerHTML = '<path d="M12 3a9 9 0 100 18 9 9 0 000-18zm0 16.5a7.5 7.5 0 110-15 7.5 7.5 0 010 15zM12 1.5a.75.75 0 01.75.75V4.5a.75.75 0 01-1.5 0V2.25A.75.75 0 0112 1.5zM4.757 4.757a.75.75 0 011.061 0l1.591 1.591a.75.75 0 11-1.061 1.061L4.757 5.818a.75.75 0 010-1.061zM1.5 12a.75.75 0 01.75-.75H4.5a.75.75 0 010 1.5H2.25A.75.75 0 011.5 12zm3.257 6.743a.75.75 0 010 1.061l-1.591 1.591a.75.75 0 11-1.061-1.061l1.591-1.591a.75.75 0 011.061 0zM12 19.5a.75.75 0 01.75.75V21.75a.75.75 0 01-1.5 0V20.25a.75.75 0 01.75-.75zm6.743-1.757a.75.75 0 011.061 0l1.591 1.591a.75.75 0 11-1.061 1.061l-1.591-1.591a.75.75 0 010-1.061zM21.75 12a.75.75 0 01-.75.75H19.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zm-3.257-6.743a.75.75 0 010-1.061l1.591-1.591a.75.75 0 111.061 1.061l-1.591 1.591a.75.75 0 01-1.061 0z"/>'; // Moon
+            localStorage.setItem('theme', 'light');
+        } else {
+            icon.innerHTML = '<path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM5.636 5.636a.75.75 0 011.061 0l1.591 1.591a.75.75 0 11-1.061 1.061L5.636 6.697a.75.75 0 010-1.061zM2.25 12a.75.75 0 01.75-.75H5.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zm3.386 6.364a.75.75 0 010 1.061l-1.591 1.591a.75.75 0 11-1.061-1.061l1.591-1.591a.75.75 0 011.061 0zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zm6.364-1.414a.75.75 0 011.061 0l1.591 1.591a.75.75 0 11-1.061 1.061l-1.591-1.591a.75.75 0 010-1.061zM21 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zm-3.386-6.364a.75.75 0 010-1.061l1.591-1.591a.75.75 0 111.061 1.061l-1.591 1.591a.75.75 0 01-1.061 0zM12 8.25a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5z"/>'; // Sun
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.onscroll = function() {
+        const backToTop = document.getElementById('backToTop');
+        backToTop.style.display = window.scrollY > 100 ? 'block' : 'none';
+    };
+
+    window.onload = function() {
+        const loader = document.getElementById('loader');
+        loader.style.display = 'block';
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            document.getElementById('themeIcon').innerHTML = '<path d="M12 3a9 9 0 100 18 9 9 0 000-18zm0 16.5a7.5 7.5 0 110-15 7.5 7.5 0 010 15zM12 1.5a.75.75 0 01.75.75V4.5a.75.75 0 01-1.5 0V2.25A.75.75 0 0112 1.5zM4.757 4.757a.75.75 0 011.061 0l1.591 1.591a.75.75 0 11-1.061 1.061L4.757 5.818a.75.75 0 010-1.061zM1.5 12a.75.75 0 01.75-.75H4.5a.75.75 0 010 1.5H2.25A.75.75 0 011.5 12zm3.257 6.743a.75.75 0 010 1.061l-1.591 1.591a.75.75 0 11-1.061-1.061l1.591-1.591a.75.75 0 011.061 0zM12 19.5a.75.75 0 01.75.75V21.75a.75.75 0 01-1.5 0V20.25a.75.75 0 01.75-.75zm6.743-1.757a.75.75 0 011.061 0l1.591 1.591a.75.75 0 11-1.061 1.061l-1.591-1.591a.75.75 0 010-1.061zM21.75 12a.75.75 0 01-.75.75H19.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zm-3.257-6.743a.75.75 0 010-1.061l1.591-1.591a.75.75 0 111.061 1.061l-1.591 1.591a.75.75 0 01-1.061 0z"/>';
+        }
+        setTimeout(() => {
+            loader.style.display = 'none';
+            populateCategories();
+        }, 500);
+    };
+
+    // p5.js Background Animation (Falling Popcorn)
+    let popcorn = [];
+    function setup() {
+        let canvas = createCanvas(windowWidth, windowHeight);
+        canvas.parent('p5-canvas');
+        for (let i = 0; i < 50; i++) {
+            popcorn.push(new Popcorn());
+        }
+    }
+
+    function draw() {
+        clear();
+        for (let p of popcorn) {
+            p.update();
+            p.show();
+        }
+    }
+
+    function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+    }
+
+    class Popcorn {
+        constructor() {
+            this.x = random(width);
+            this.y = random(-height, 0);
+            this.speed = random(1, 3);
+            this.size = random(5, 10);
+        }
+        update() {
+            this.y += this.speed;
+            if (this.y > height) {
+                this.y = random(-height, 0);
+                this.x = random(width);
+            }
+        }
+        show() {
+            fill(255, 204, 0, 150); // Popcorn yellow with transparency
+            noStroke();
+            ellipse(this.x, this.y, this.size, this.size);
+        }
+    }
+</script>
+<div id="p5-canvas"></div>
+<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('Service Worker registered:', reg))
+          .catch(err => console.log('Service Worker registration failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>
