@@ -84,9 +84,9 @@
             color: #e50914;
         }
         .search-container {
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             text-align: center;
-            padding: 0 10px;
+            padding: 0 40px;
             box-sizing: border-box;
         }
         #searchInput {
@@ -179,6 +179,87 @@
             opacity: 1;
             visibility: visible;
         }
+        .quick-start {
+            margin-top: 50px; /* Space from category count above */
+            margin-bottom: 40px; /* Space before the Movies box below */
+            text-align: center;
+        }
+
+        .quick-start h2 {
+            color: #e50914;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .quick-start-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 0 10px;
+        }
+        
+        .quick-start-item {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, background 0.2s;
+            position: relative;
+        }
+        
+        .quick-start-item:hover {
+            transform: scale(1.05);
+            background: #e50914;
+        }
+        
+        .quick-start-title {
+            color: #e5e5e5;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .quick-start-recap {
+            font-size: 14px;
+            color: #999;
+            margin: 0 0 20px 0;
+        }
+
+        .quick-start-code {
+            color: #999;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .quick-start-item:hover .quick-start-title,
+        .quick-start-item:hover .quick-start-code {
+            color: #fff;
+        }
+        
+        .quick-start-item::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s;
+        }
+        
+        .quick-start-item:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
         #backToTop {
             position: fixed;
             bottom: 20px;
@@ -233,6 +314,24 @@
             background: #ddd;
             color: #333;
         }
+        body.light-mode .quick-start-item {
+            background: #e5e5e5;
+        }
+        
+        body.light-mode .quick-start-item:hover {
+            background: #e50914;
+        }
+        
+        body.light-mode .quick-start-title {
+            color: #333;
+        }
+        
+        body.light-mode .quick-start-item:hover .quick-start-title {
+            color: #fff;
+        }
+        body.light-mode .quick-start-recap {
+            color: #666;
+        }
         /* Responsive Design */
         @media (max-width: 1500px) {
             .container {
@@ -267,6 +366,9 @@
             .search-container {
                 padding: 0 5px;
             }
+            .quick-start-grid {
+                grid-template-columns: 1fr;
+            }
         }
         /* p5.js Canvas */
         #p5-canvas {
@@ -274,7 +376,7 @@
             top: 0;
             left: 0;
             z-index: 0;
-            opacity: 0.1;
+            opacity: 0.3;
         }
     </style>
 </head>
@@ -284,7 +386,7 @@
         <div class="loader" id="loader"></div>
         <header class="header">
             <div class="title-wrapper">
-                <h1>Ultimate Netflix Secret Codes</h1>
+                <h1>Netflix Secret Codes</h1>
             </div>
             <div class="header-controls">
                 <div class="theme-toggle">
@@ -307,6 +409,28 @@
             <input type="text" id="searchInput" placeholder="Search categories..." onkeyup="filterCategories()">
         </div>
         <div id="categoryCount"></div>
+        <div class="quick-start">
+            <h2>🍿 Pop Right In</h2>
+            <p class="quick-start-recap">Click on a card to jump straight into Netflix or use the search to find what your looking for!</p>
+            <div class="quick-start-grid">
+                <a href="https://www.netflix.com/browse/genre/1592210" target="_blank" class="quick-start-item" data-tooltip="Fresh titles just dropped">
+                    <span class="quick-start-title">Recently Added</span>
+                    <span class="quick-start-code">1592210</span>
+                </a>
+                <a href="https://www.netflix.com/browse/genre/81603903" target="_blank" class="quick-start-item" data-tooltip="Quick, quirky shorts">
+                    <span class="quick-start-title">Short-Ass Movies</span>
+                    <span class="quick-start-code">81603903</span>
+                </a>
+                <a href="https://www.netflix.com/browse/genre/81466194" target="_blank" class="quick-start-item" data-tooltip="Perfect for a tight schedule">
+                    <span class="quick-start-title">90-Minute Movies</span>
+                    <span class="quick-start-code">81466194</span>
+                </a>
+                <a href="https://www.netflix.com/browse/genre/81396426" target="_blank" class="quick-start-item" data-tooltip="Settle in for a longer watch">
+                    <span class="quick-start-title">Two-Hour Movies</span>
+                    <span class="quick-start-code">81396426</span>
+                </a>
+            </div>
+        </div>
         <div class="category-group">
             <h2 onclick="toggleGroup(this)">Movies</h2>
             <ul class="category-list" id="moviesList"></ul>
@@ -318,6 +442,10 @@
         <div class="category-group">
             <h2 onclick="toggleGroup(this)">Genres</h2>
             <ul class="category-list" id="genresList"></ul>
+        </div>
+        <div class="category-group">
+            <h2 onclick="toggleGroup(this)">Holiday</h2>
+            <ul class="category-list" id="holidayList"></ul>
         </div>
         <button id="backToTop" onclick="scrollToTop()">↑</button>
     </div>
@@ -348,7 +476,6 @@
         { name: "Campy Movies", code: "1252", group: "movies", tooltip: "Over-the-top fun films" },
         { name: "Children & Family Movies", code: "783", group: "movies", tooltip: "Fun for kids and families" },
         { name: "Chinese Movies", code: "3960", group: "movies", tooltip: "Films from China’s rich culture" },
-        { name: "Classic Action & Adventure", code: "46576", group: "movies", tooltip: "Timeless action classics" },
         { name: "Classic Comedies", code: "31694", group: "movies", tooltip: "Vintage laughs that endure" },
         { name: "Classic Dramas", code: "29809", group: "movies", tooltip: "Timeless dramatic masterpieces" },
         { name: "Classic Foreign Movies", code: "32473", group: "movies", tooltip: "Global classics from yesteryear" },
@@ -385,8 +512,8 @@
         { name: "Film Noir", code: "7687", group: "movies", tooltip: "Dark, moody classics" },
         { name: "Football Movies", code: "12803", group: "movies", tooltip: "Gridiron glory and drama" },
         { name: "French Movies", code: "58807", group: "movies", tooltip: "French cinematic artistry" },
+        { name: "Foreign", code: "7462", group: "movies", tooltip: "Cinematic stories from around the globe" },
         { name: "Gangster Movies", code: "31851", group: "movies", tooltip: "Mob life and crime" },
-        { name: "Gay & Lesbian Movies", code: "5977", group: "movies", tooltip: "LGBTQ+ stories on screen" },
         { name: "German Movies", code: "58886", group: "movies", tooltip: "German film craftsmanship" },
         { name: "Greek Movies", code: "61115", group: "movies", tooltip: "Greek cinematic narratives" },
         { name: "High Brow Horror", code: "3261672", group: "movies", tooltip: "Elevated horror experiences" },
@@ -394,6 +521,7 @@
         { name: "Horror Movies", code: "8711", group: "movies", tooltip: "Spooky and thrilling films" },
         { name: "Independent Comedies", code: "4195", group: "movies", tooltip: "Indie laughs with charm" },
         { name: "Independent Dramas", code: "384", group: "movies", tooltip: "Indie emotional depth" },
+        { name: "Independent Movies", code: "7077", group: "movies", tooltip: "Unique and creative indie films" },
         { name: "Independent Thrillers", code: "3269", group: "movies", tooltip: "Indie suspense stories" },
         { name: "Indian Movies", code: "10463", group: "movies", tooltip: "Bollywood and beyond" },
         { name: "Irish Movies", code: "58750", group: "movies", tooltip: "Irish cinematic tales" },
@@ -404,7 +532,6 @@
         { name: "Latin American Movies", code: "1613", group: "movies", tooltip: "Latin American stories" },
         { name: "Martial Arts Movies", code: "8985", group: "movies", tooltip: "Kicks, punches, and action" },
         { name: "Middle Eastern Movies", code: "5875", group: "movies", tooltip: "Middle Eastern narratives" },
-        { name: "Military Action & Adventure", code: "2125", group: "movies", tooltip: "Military missions on screen" },
         { name: "Military Dramas", code: "11", group: "movies", tooltip: "War’s dramatic side" },
         { name: "Monster Movies", code: "947", group: "movies", tooltip: "Creatures that terrify" },
         { name: "Movies Based on Children’s Books", code: "10056", group: "movies", tooltip: "Kids’ books brought to life" },
@@ -525,13 +652,35 @@
         { name: "Sports Documentaries", code: "180", group: "genres", tooltip: "Sports history revealed" },
         { name: "Stand-up Comedy", code: "11559", group: "genres", tooltip: "Live comedy specials" },
         { name: "Thrillers", code: "8933", group: "genres", tooltip: "Suspenseful and gripping stories" },
-        { name: "Travel & Adventure Documentaries", code: "1159", group: "genres", tooltip: "Journeys around the globe" }
+        { name: "Travel & Adventure Documentaries", code: "1159", group: "genres", tooltip: "Journeys around the globe" },
+
+        // Holiday Category
+        { name: "Seasons Streamings", code: "81346420", group: "holiday", tooltip: "Festive streaming specials" },
+        { name: "British Christmas Children & Family Films", code: "1527064", group: "holiday", tooltip: "UK holiday fun for kids" },
+        { name: "Canadian Christmas Children & Family Films", code: "1721544", group: "holiday", tooltip: "Canadian holiday tales for families" },
+        { name: "Christmas Children & Family Films", code: "1474017", group: "holiday", tooltip: "Family-friendly Christmas movies" },
+        { name: "Christmas Comedies", code: "1474015", group: "holiday", tooltip: "Laughs for the holiday season" },
+        { name: "Christmas for Kids", code: "1726277", group: "holiday", tooltip: "Kid-centric Christmas joy" },
+        { name: "Christmas TV Cartoons", code: "1395703", group: "holiday", tooltip: "Animated holiday episodes" },
+        { name: "Christmas TV Comedies", code: "1395700", group: "holiday", tooltip: "Holiday laughs on TV" },
+        { name: "European Christmas Children & Family Films", code: "1527063", group: "holiday", tooltip: "European holiday family films" },
+        { name: "Feel-Good Christmas Children & Family Films", code: "1475066", group: "holiday", tooltip: "Uplifting Christmas for kids" },
+        { name: "Feel-Good Christmas Films", code: "1418977", group: "holiday", tooltip: "Heartwarming holiday vibes" },
+        { name: "Festive Family Fun", code: "81351538", group: "holiday", tooltip: "Family holiday entertainment" },
+        { name: "Festive Favorites", code: "107985", group: "holiday", tooltip: "Classic holiday picks" },
+        { name: "Festive Fun", code: "393181", group: "holiday", tooltip: "Lighthearted holiday cheer" },
+        { name: "Festive Romance", code: "394388", group: "holiday", tooltip: "Love stories for the season" },
+        { name: "Romantic Christmas Films", code: "1394527", group: "holiday", tooltip: "Holiday romance on screen" },
+        { name: "Family Halloween Treats", code: "81346195", group: "holiday", tooltip: "Spooky fun for families" },
+        { name: "Halloween Comedies", code: "81510605", group: "holiday", tooltip: "Laughs with a spooky twist" },
+        { name: "Halloween Favorites", code: "81336575", group: "holiday", tooltip: "Top Halloween picks" }
     ];
 
     function populateCategories() {
         const moviesList = document.getElementById('moviesList');
         const tvShowsList = document.getElementById('tvShowsList');
         const genresList = document.getElementById('genresList');
+        const holidayList = document.getElementById('holidayList');
         categories.sort((a, b) => a.name.localeCompare(b.name));
         categories.forEach(category => {
             const li = document.createElement('li');
@@ -541,6 +690,7 @@
             if (category.group === 'movies') moviesList.appendChild(li);
             else if (category.group === 'tvshows') tvShowsList.appendChild(li);
             else if (category.group === 'genres') genresList.appendChild(li);
+            else if (category.group === 'holiday') holidayList.appendChild(li);
         });
         updateCategoryCount();
     }
@@ -616,7 +766,7 @@
     function setup() {
         let canvas = createCanvas(windowWidth, windowHeight);
         canvas.parent('p5-canvas');
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 100; i++) { // Increased to 75 pieces amount of popcorn shown
             popcorn.push(new Popcorn());
         }
     }
@@ -637,20 +787,55 @@
         constructor() {
             this.x = random(width);
             this.y = random(-height, 0);
-            this.speed = random(1, 3);
-            this.size = random(5, 10);
+            this.speed = random(0.5, 1); // Slightly faster fall
+            this.size = random(12, 20); // Larger pieces
+            this.rotation = random(TWO_PI); // Random spin
+            this.bounce = random() > 0.1; // 20% chance to bounce
+            this.restitution = 0.2; // Bounce with 40% of previous speed
+            this.angle = random() > 0.9 ? 0 : random(-PI / 7, PI / 7); // 50% straight, 50% angled
         }
         update() {
-            this.y += this.speed;
+            // Apply gravity to speed (pulls downward)
+            this.speed += 0.03; // Gravity constant
+            // Calculate movement based on angle
+            let dx = this.speed * sin(this.angle);
+            let dy = this.speed * cos(this.angle);
+            this.x += dx;
+            this.y += dy;
+            this.rotation += 0.03; // Gentle spin
+
+            // Bounce or reset when hitting bottom
             if (this.y > height) {
-                this.y = random(-height, 0);
-                this.x = random(width);
+                if (this.bounce && abs(this.speed) > 0.5) {
+                    // Bounce: reverse speed and reflect angle
+                    this.speed = -this.speed * this.restitution;
+                    this.angle = -this.angle + random(-PI / 9, PI / 9);
+                } else {
+                    // Reset to top if not bouncing or speed too small
+                    this.y = random(-height, 0);
+                    this.x = random(width);
+                    this.speed = random(1, 2);
+                    this.angle = random() > 0.8 ? 0 : random(-PI / 7, PI / 7);
+                }
             }
+            // Wrap around horizontally
+            if (this.x < 0) this.x += width;
+            if (this.x > width) this.x -= width;
         }
         show() {
-            fill(255, 204, 0, 150); // Popcorn yellow with transparency
+            push();
+            translate(this.x, this.y);
+            rotate(this.rotation);
+            fill(255, 215, 0, 200); // Brighter gold popcorn, more opaque
             noStroke();
-            ellipse(this.x, this.y, this.size, this.size);
+            // Rough popcorn shape (instead of plain ellipse)
+            beginShape();
+            for (let i = 0; i < TWO_PI; i += PI / 6) {
+                let r = this.size * (0.8 + random(0, 0.4)); // Jagged edges
+                vertex(r * cos(i), r * sin(i));
+            }
+            endShape(CLOSE);
+            pop();
         }
     }
 </script>
