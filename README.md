@@ -2,7 +2,7 @@
 
 ![https://repository-images.githubusercontent.com/936476888/00b903ac-5799-463f-8691-718f288c0c1e](https://imagedelivery.net/WfhVb8dSNAAvdXUdMfBuPQ/ba1b05af-7f8f-4e6d-3d0d-9c3b6af2f900/public)
 
-## Download as an App on phone iphone and andriod
+## Download as an App on iphone and andriod
 
 On Android, saving a Progressive Web App (PWA) to the home screen is slightly different depending on the browser. Here’s how they can do it:
 
