@@ -4,9 +4,10 @@
 
 ## Download as an App on iphone and andriod
 
-On Android, saving a Progressive Web App (PWA) to the home screen is slightly different depending on the browser. Here’s how they can do it:
+On Android, saving a Progressive Web App (PWA):
 
 Using Google Chrome (Most Common)
+
 Open Chrome on the Android device.
 Go to the website.
 Tap the three-dot menu (top-right corner).
@@ -16,6 +17,7 @@ A shortcut will be created on the home screen, it will launch in standalone mode
 
 
 Steps to Save Your PWA on iPhone
+
 Open Safari on the iPhone.
 Go to your website.
 Tap the Share Button (📤, square with an up arrow).
