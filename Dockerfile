@@ -1,4 +1,5 @@
 # Use official Nginx Alpine image for a lightweight base
+# Rebuilt Jan 2026 to pull latest security updates
 FROM nginx:alpine
 
 # Metadata
